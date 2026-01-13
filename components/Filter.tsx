@@ -4,6 +4,8 @@ import { getData } from "@/lib/api";
 import { useInquiriesContext } from "@/context/inquiries-context";
 import FilterCalendar from "./filter-calendar";
 import { LuLoaderCircle } from "react-icons/lu";
+import { useRouter } from "next/navigation";
+import { getQueryString } from "@/lib/utils";
 type TForm = {
   clientName?: string;
   potentialValue?: string;
@@ -12,6 +14,7 @@ type TForm = {
 };
 
 const Filter = () => {
+  const router = useRouter();
   const { setInquiries } = useInquiriesContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formFields, setFormFields] = useState<TForm>({
@@ -36,20 +39,27 @@ const Filter = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    const response = await getData("/inquiries", formFields);
+    const query = getQueryString(formFields);
+    const response = await getData("/inquiries", query);
     setInquiries(response);
+    router.push(query);
     setIsLoading(false);
   };
 
   const onReset = async () => {
-    const response = await getData("/inquiries", {});
+    const response = await getData("/inquiries", "");
     setInquiries(response);
+    router.push("/");
     setFormFields({
       clientName: "",
       potentialValue: "",
       startDate: undefined,
       endDate: undefined,
     });
+  };
+
+  const getFieldsLength = () => {
+    return Object.values(formFields).filter(Boolean).length === 0;
   };
 
   return (
@@ -97,7 +107,11 @@ const Filter = () => {
           </div>
         </div>
         <div className="flex gap-x-2">
-          <Button type={"submit"} className="flex px-6 text-sm">
+          <Button
+            type={"submit"}
+            className="flex px-6 text-sm"
+            disabled={getFieldsLength()}
+          >
             <div className="flex justify-center items-center gap-x-2">
               {isLoading && <LuLoaderCircle className="animate-spin" />}
               Filter

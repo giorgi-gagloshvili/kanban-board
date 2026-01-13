@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import Column from "./Column";
+import { useSearchParams } from "next/navigation";
 import { TCard, TColumn } from "@/lib/types";
 import { useInquiriesContext } from "@/context/inquiries-context";
 import Modal from "./Modal";
 import InquiryDetails from "./inquiry-details";
 import Filter from "./Filter";
+import { getData } from "@/lib/api";
 
 const columns: TColumn[] = [
   { id: 1, name: "New", phase: "new", color: "bg-blue-500" },
@@ -27,13 +29,11 @@ const columns: TColumn[] = [
 
 const Board = () => {
   const { inquiries, setInquiries } = useInquiriesContext();
-  const [cards, setCards] = useState<TCard[]>([]);
+
   useEffect(() => {
     const getInquiries = async () => {
-      const response = await fetch("http://localhost:3000/api/inquiries");
-      const json = await response.json();
-      console.log(json);
-      setInquiries(json);
+      const response = await getData("/inquiries", location?.search);
+      setInquiries(response);
     };
     getInquiries();
   }, []);

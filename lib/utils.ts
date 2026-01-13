@@ -36,3 +36,19 @@ export const formatTimeAgo = (isoString: string): string => {
 
   return "just now";
 };
+
+export const getQueryString = (query: any) => {
+  let queryString = "";
+
+  if (Object.values(query).filter(Boolean)) {
+    queryString += "?";
+  }
+
+  for (let key in query) {
+    if (query[key]) {
+      queryString += `${key}=${query[key]}&`;
+    }
+  }
+
+  return queryString.slice(0, queryString.length - 1);
+};

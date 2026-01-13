@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Follow these steps to get the project running locally:
+Clone the repository: git clone https://github.com/giorgi-gagloshvili/kanban-board.git
+cd kanban-board
+Install dependencies:
+npm install
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+yarn install
+Run the development server: npm run dev
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Access the app:Open http://localhost:3000 in your browser.🏗
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Project Structure:
+The project follows a modular component-based architecture for scalability and maintainability
 
-## Learn More
+# components
 
-To learn more about Next.js, take a look at the following resources:
+Board.tsx - The main container that manages the state of the columns and drag-and-drop context.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Column.tsx Represents a task status (e.g., To Do, In Progress); handles the dropping logic.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Card: The individual task item; handles the dragging logic.
 
-## Deploy on Vercel
+Filter: Logic to search and filter tasks.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Details Modal: A portal-based view for editing task descriptions and dates.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Context api is used For global state manegement
+
+# Back-end solution
+
+/api (Mock): A local mock API layer to simulate asynchronous data fetching and persistence.
+
+# Libraries used
+
+Pragmatic Drag and Drop Developed by Atlassian, it is significantly more performant and flexible than react-beautiful-dnd, especially for complex grid/list movements.
+
+Tailwind-merge & clsx Allows for clean, conditional class naming and prevents style conflicts when overriding Tailwind classes in reusable components.
+
+React Icons Provides a unified, tree-shakable icon set to keep the UI intuitive without bloating the bundle size.
+
+React Day Picker - A highly accessible and customizable date picker that integrates perfectly with the task deadline requirements.
+
+Date-fns - A lightweight library used to format deadlines and calculate "due soon" labels within the cards.

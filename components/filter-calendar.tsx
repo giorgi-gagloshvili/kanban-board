@@ -63,7 +63,7 @@ const FilterCalendar = ({
       >
         <span
           className={cn(
-            "font-tbc-medium whitespace-nowrap text-ellipsis overflow-hidden",
+            "text-gray-500 whitespace-nowrap text-ellipsis overflow-hidden",
             value ? "w-28" : "w-auto"
           )}
         >
