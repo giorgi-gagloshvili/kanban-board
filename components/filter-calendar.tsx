@@ -71,7 +71,7 @@ const FilterCalendar = ({
         </span>
       </div>
       {isVisible && (
-        <div className="absolute top-12 right-0 w-[43rem]">
+        <div className="absolute top-12 right-0 w-fukk lg:w-[43rem]">
           <DayPicker
             className={cn(
               "bg-white w-full inline-block p-4 rounded-xl border border-slate-300 shadow-sm",
