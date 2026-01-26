@@ -2,11 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { TCard, TPhase } from "@/lib/types";
 import Card from "./Card";
 import { useInquiriesContext } from "@/context/inquiries-context";
-import {
-  draggable,
-  dropTargetForElements,
-} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { updateData } from "@/lib/api";
+import { dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { getData, updateData } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 
@@ -63,13 +60,14 @@ const Column = ({
           }
         }),
       );
-
       await updateData(id, "inquiries", { phase });
-    } catch (err: any) {
-      setInquiries(inquiries);
-      toast.error(err.message || "Something went wrong", {
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong", {
         position: "bottom-center",
       });
+    } finally {
+      const response = await getData("/inquiries", "");
+      setInquiries(response);
     }
   };
 

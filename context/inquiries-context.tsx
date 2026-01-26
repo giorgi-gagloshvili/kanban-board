@@ -17,8 +17,6 @@ type TContext = {
   setInquiryDetails: Dispatch<SetStateAction<TCard | null>>;
   error: null | string;
   setError: Dispatch<SetStateAction<string | null>>;
-  isPending: boolean;
-  setIsPending: Dispatch<SetStateAction<boolean>>;
 };
 
 const inqContext = createContext<null | TContext>(null);
@@ -32,7 +30,6 @@ export const InquiriesProvider = ({
   const [inquiryDetails, setInquiryDetails] = useState<TCard | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [error, setError] = useState<null | string>(null);
-  const [isPending, setIsPending] = useState<boolean>(true);
 
   return (
     <inqContext.Provider
@@ -45,8 +42,6 @@ export const InquiriesProvider = ({
         setInquiryDetails,
         error,
         setError,
-        isPending,
-        setIsPending,
       }}
     >
       {children}

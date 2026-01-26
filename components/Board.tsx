@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Column from "./Column";
-import { TColumn } from "@/lib/types";
+import { TCard, TColumn } from "@/lib/types";
 import { useInquiriesContext } from "@/context/inquiries-context";
 import Modal from "./Modal";
 import InquiryDetails from "./inquiry-details";
@@ -27,52 +27,21 @@ const columns: TColumn[] = [
   { id: 4, name: "Completed", phase: "completed", color: "bg-green-500" },
 ];
 
-const Board = () => {
-  const { inquiries, setInquiries, error, setError, isPending, setIsPending } =
-    useInquiriesContext();
+const Board = ({ data }: { data: TCard[] }) => {
+  const { inquiries, setInquiries } = useInquiriesContext();
 
   useEffect(() => {
-    const getInquiries = async () => {
-      setIsPending(true);
-      try {
-        const response = await getData("/inquiries", location?.search);
-        setInquiries(response);
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch");
-      } finally {
-        setIsPending(false);
-      }
-    };
-
-    getInquiries();
+    setInquiries(data);
   }, []);
 
   const getCards = (phase: string) => {
     return inquiries.filter((card) => card.phase === phase);
   };
 
-  if (isPending) {
-    return (
-      <div className="absolute top-0 left-0 w-full h-screen bg-white z-50 flex items-center justify-center">
-        <div className="animate-spin">
-          <ImSpinner8 size={30} className="text-blue-600" />
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="border p-5 bg-red-100 border-red-400 rounded-lg text-red-500 font-bold">
-        {error}
-      </div>
-    );
-  }
-
   return (
     <div className="overflow-x-auto custom-scrollbar">
       <Filter />
-      {inquiries.length ? (
+      {inquiries ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 ">
           {columns.map((column) => (
             <Column

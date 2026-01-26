@@ -1,6 +1,7 @@
 import Board from "@/components/Board";
-import Image from "next/image";
+import { getData } from "@/lib/api";
 
-export default function Home() {
-  return <Board />;
+export default async function Home() {
+  const data = await getData("/inquiries", "");
+  return <Board data={data} />;
 }
