@@ -25,7 +25,11 @@ const Filter = () => {
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormFields({ ...formFields, [e.target.name]: e.target.value });
+    let value = e.target.value;
+    if (e.target.name === "potentialValue") {
+      value = value.replace(/\D/g, "");
+    }
+    setFormFields({ ...formFields, [e.target.name]: value });
   };
 
   const onDateChange = (name: string, dates: any) => {
@@ -65,29 +69,32 @@ const Filter = () => {
   return (
     <div className="bg-slate-50 shadow border-default py-4 px-6 rounded-lg flex gap-x-2">
       {/* {JSON.stringify(formFields)} */}
-      <form className="flex justify-between w-full" onSubmit={onSubmit}>
-        <div className="flex gap-x-4">
-          <div>
+      <form
+        className="flex flex-col lg:flex-row justify-between w-full gap-y-4 flex-wrap"
+        onSubmit={onSubmit}
+      >
+        <div className="flex flex-col lg:flex-row flex-wrap gap-4">
+          <div className="flex-1">
             <input
               type="text"
-              className="px-4 py-2 border border-slate-400 outline-none rounded-md shadow-sm bg-white"
+              className="px-4 w-full py-2 border border-slate-400 outline-none rounded-md shadow-sm bg-white"
               name="clientName"
               placeholder="client name"
               value={formFields?.clientName}
               onChange={onChange}
             />
           </div>
-          <div>
+          <div className="flex-1">
             <input
               type="text"
-              className="px-4 py-2 border border-slate-400 outline-none rounded-md shadow-sm bg-white"
+              className="px-4 w-full py-2 border border-slate-400 outline-none rounded-md shadow-sm bg-white"
               name="potentialValue"
               placeholder="Value"
               value={formFields?.potentialValue}
               onChange={onChange}
             />
           </div>
-          <div>
+          <div className="flex-1">
             <FilterCalendar
               placeholder={"Choose Date"}
               value={
@@ -107,11 +114,7 @@ const Filter = () => {
           </div>
         </div>
         <div className="flex gap-x-2">
-          <Button
-            type={"submit"}
-            className="flex px-6 text-sm"
-            disabled={getFieldsLength()}
-          >
+          <Button type={"submit"} className="flex px-6 text-sm">
             <div className="flex justify-center items-center gap-x-2">
               {isLoading && <LuLoaderCircle className="animate-spin" />}
               Filter
@@ -121,6 +124,7 @@ const Filter = () => {
             onClick={onReset}
             type="button"
             className="bg-white text-black px-6 border-default hover:bg-white"
+            disabled={getFieldsLength()}
           >
             Reset
           </Button>

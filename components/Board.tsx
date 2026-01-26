@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Column from "./Column";
-import { useSearchParams } from "next/navigation";
-import { TCard, TColumn } from "@/lib/types";
+import { TColumn } from "@/lib/types";
 import { useInquiriesContext } from "@/context/inquiries-context";
 import Modal from "./Modal";
 import InquiryDetails from "./inquiry-details";
 import Filter from "./Filter";
+import { ImSpinner8 } from "react-icons/im";
 import { getData } from "@/lib/api";
 
 const columns: TColumn[] = [
@@ -28,13 +28,23 @@ const columns: TColumn[] = [
 ];
 
 const Board = () => {
-  const { inquiries, setInquiries } = useInquiriesContext();
+  const { inquiries, setInquiries, error, setError } = useInquiriesContext();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getInquiries = async () => {
-      const response = await getData("/inquiries", location?.search);
-      setInquiries(response);
+      setIsLoading(true);
+      try {
+        const response = await getData("/inquiries", location?.search);
+        setInquiries(response);
+      } catch (err: any) {
+        setError(err.message || "Failed to fetch");
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     getInquiries();
   }, []);
 
@@ -42,11 +52,29 @@ const Board = () => {
     return inquiries.filter((card) => card.phase === phase);
   };
 
-  return (
+  if (isLoading) {
+    return (
+      <div className="absolute top-0 left-0 w-full h-screen bg-white z-50 flex items-center justify-center">
+        <div className="animate-spin">
+          <ImSpinner8 size={30} className="text-blue-600" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="border p-5 bg-red-100 border-red-400 rounded-lg text-red-500 font-bold">
+        {error}
+      </div>
+    );
+  }
+
+  return inquiries.length ? (
     <div className="overflow-x-auto custom-scrollbar">
       <Filter />
-      <div className="flex flex-wrap gap-x-4 items-start mt-8 w-[1280px] ">
-        {columns.map((column, index) => (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 ">
+        {columns.map((column) => (
           <Column
             key={column.id}
             color={column.color}
@@ -60,7 +88,7 @@ const Board = () => {
         <InquiryDetails />
       </Modal>
     </div>
-  );
+  ) : null;
 };
 
 export default Board;

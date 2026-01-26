@@ -16,19 +16,19 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className={cn(
-        `fixed top-0 left-0 z-50 w-full flex justify-end h-screen`,
-        isOpen ? "visible opacity-100" : "invisible opacity-0"
+        `fixed top-0 left-0 z-50 w-full flex justify-end h-screen transition-all duration-300`,
+        isOpen ? "visible opacity-100" : "invisible opacity-0",
       )}
     >
       <div
-        className={`h-full w-full absolute top-0 left-0 bg-black/20 z-[1010] item-transition`}
+        className={`h-full w-full absolute top-0 left-0 bg-black/20 z-[1010]`}
         onClick={handleClose}
         id="modal-container"
       ></div>
       <div
         className={`${
           isOpen ? "lg:translate-x-0" : "lg:translate-x-[100%]"
-        } h-auto w-96 relative z-[1020] bg-white borde p-6`}
+        } h-auto w-96 relative z-[1020] bg-white borde p-6 transition-all duration-300`}
       >
         <div className="flex justify-between pb-5 mb-4 border-b border-slate-300">
           <h2 className="text-lg">{"Details"}</h2>

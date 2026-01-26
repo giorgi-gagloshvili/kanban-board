@@ -5,16 +5,12 @@ export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
-// utils/formatTimeAgo.ts
-
 export const formatTimeAgo = (isoString: string): string => {
   const date = new Date(isoString);
   const now = new Date();
 
-  // Calculate difference in seconds
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  // Handle future dates or just now
   if (diffInSeconds < 5) return "just now";
 
   const intervals = [

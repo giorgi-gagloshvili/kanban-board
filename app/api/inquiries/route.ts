@@ -12,8 +12,8 @@ export const GET = async (request: Request) => {
     const { searchParams } = new URL(request.url);
     const clientName = searchParams.get("clientName")?.toLowerCase();
     const potentialValue = searchParams.get("potentialValue");
-    const startDateQuery = searchParams.get("startDate"); // e.g., "2026-02-01"
-    const endDateQuery = searchParams.get("endDate"); // e.g., "2026-02-28"
+    const startDateQuery = searchParams.get("startDate");
+    const endDateQuery = searchParams.get("endDate");
 
     data = data.filter((item: any) => {
       const matchesName = clientName

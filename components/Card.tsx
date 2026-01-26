@@ -4,11 +4,6 @@ import {
   draggable,
   dropTargetForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-// import {
-//   attachClosestEdge,
-//   extractClosestEdge,
-//   Edge,
-// } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 
 import { cn, formatTimeAgo } from "@/lib/utils";
 import { useInquiriesContext } from "@/context/inquiries-context";
@@ -41,7 +36,7 @@ const Card = ({ card }: { card: TCard }) => {
     <div
       className={cn(
         `flex flex-col gap-y-2 border p-4 rounded-xl cursor-pointer shadow hover:bg-slate-100`,
-        isDragged ? "opacity-0" : ""
+        isDragged ? "opacity-0" : "",
       )}
       ref={ref}
       onClick={() => {

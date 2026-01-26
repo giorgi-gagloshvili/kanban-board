@@ -3,6 +3,7 @@ import { useInquiriesContext } from "@/context/inquiries-context";
 import { updateData } from "@/lib/api";
 import { useState } from "react";
 import { TPhase } from "@/lib/types";
+import toast from "react-hot-toast";
 const PHASES = [
   { name: "New", phase: "new" },
   { name: "Sent to Hotels", phase: "sent_to_hotels" },
@@ -11,9 +12,13 @@ const PHASES = [
 ];
 
 const InquiryDetails = () => {
-  const { inquiryDetails: details, setInquiries } = useInquiriesContext();
+  const {
+    inquiryDetails: details,
+    setInquiries,
+    inquiries,
+  } = useInquiriesContext();
   const [selectedPhase, setSelectedPhase] = useState<TPhase | undefined>(
-    undefined
+    undefined,
   );
 
   return (
@@ -78,26 +83,31 @@ const InquiryDetails = () => {
             id="update_inquiry"
             value={selectedPhase ? selectedPhase : details?.phase}
             onChange={async (e) => {
-              const value = e.target.value;
-              setSelectedPhase(e.target.value as TPhase);
+              try {
+                const value = e.target.value;
+                setSelectedPhase(e.target.value as TPhase);
 
-              if (details?.id) {
-                setInquiries((prev) =>
-                  prev.map((item) => {
-                    if (item.id === details?.id) {
-                      return {
-                        ...item,
-                        phase: value as TPhase,
-                      };
-                    } else {
-                      return item;
-                    }
-                  })
-                );
+                if (details?.id) {
+                  setInquiries((prev) =>
+                    prev.map((item) => {
+                      if (item.id === details?.id) {
+                        return {
+                          ...item,
+                          phase: value as TPhase,
+                        };
+                      } else {
+                        return item;
+                      }
+                    }),
+                  );
 
-                await updateData(details?.id, "/inquiries", {
-                  phase: value,
-                });
+                  await updateData(details?.id, "/inquiries", {
+                    phase: value,
+                  });
+                }
+              } catch (err: any) {
+                setInquiries(inquiries);
+                toast.error(err.message || "Something went wrong");
               }
             }}
           >

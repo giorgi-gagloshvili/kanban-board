@@ -8,6 +8,7 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { updateData } from "@/lib/api";
 import { cn } from "@/lib/utils";
+import toast from "react-hot-toast";
 
 const Column = ({
   cards,
@@ -20,15 +21,14 @@ const Column = ({
   phase: TPhase;
   color: string;
 }) => {
-  const { setInquiries } = useInquiriesContext();
   const refElement = useRef(null);
+  const { setInquiries, inquiries, error } = useInquiriesContext();
   const [isDragged, setIsDragged] = useState<boolean>(false);
 
   useEffect(() => {
     const element = refElement.current;
     if (!element) return;
 
-    // 2. Make the element a drop target (for reordering)
     return dropTargetForElements({
       element,
       onDragEnter: () => {
@@ -46,32 +46,39 @@ const Column = ({
 
   const totalValue = cards.reduce(
     (total, item) => total + item.potentialValue,
-    0
+    0,
   );
 
   const onUpdate = async (id: string, phase: TPhase) => {
     console.log({ id, phase });
-    setInquiries((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            phase: phase,
-          };
-        } else {
-          return item;
-        }
-      })
-    );
+    try {
+      setInquiries((prev) =>
+        prev.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              phase: phase,
+            };
+          } else {
+            return item;
+          }
+        }),
+      );
 
-    await updateData(id, "inquiries", { phase });
+      await updateData(id, "inquiries", { phase });
+    } catch (err: any) {
+      setInquiries(inquiries);
+      toast.error(err.message || "Something went wrong", {
+        position: "bottom-center",
+      });
+    }
   };
 
   return (
     <div
       className={cn(
         `bg-white border rounded-xl shadow flex-1 overflow-hidden flex-shrink-0`,
-        isDragged ? "border-slate-400 bg-slate-50" : "border-slate-300"
+        isDragged ? "border-slate-400 bg-slate-50" : "border-slate-300",
       )}
       ref={refElement}
     >

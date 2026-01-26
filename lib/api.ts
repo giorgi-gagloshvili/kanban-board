@@ -6,7 +6,7 @@ export const getData = async (endpoint: string, query?: string | undefined) => {
     },
   });
   if (!response.ok) {
-    throw new Error("Fetch failed");
+    throw new Error("Failed to fetch");
   }
   return await response.json();
 };
@@ -14,7 +14,7 @@ export const getData = async (endpoint: string, query?: string | undefined) => {
 export const updateData = async (
   id: string,
   endpoint: string,
-  data: { phase: string }
+  data: { phase: string },
 ) => {
   const response = await fetch(`http://localhost:3000/api/${endpoint}/${id}`, {
     method: "PATCH",
@@ -25,7 +25,7 @@ export const updateData = async (
   });
 
   if (!response.ok) {
-    throw new Error("Soething went wrong");
+    throw new Error("Something went wrong");
   }
 
   await response.json();

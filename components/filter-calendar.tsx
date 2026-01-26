@@ -36,7 +36,7 @@ const FilterCalendar = ({
   let footer = value
     ? `${format(value?.from, "LLL dd, yyyy")} - ${format(
         value?.to,
-        "LLL dd, yyyy"
+        "LLL dd, yyyy",
       )}`
     : "Please select the first day.";
 
@@ -54,23 +54,23 @@ const FilterCalendar = ({
   };
 
   return (
-    <div ref={selectRef} className={`relative`}>
+    <div ref={selectRef} className={`relative w-full`}>
       <div
         className={cn(
-          `flex-center w-64 bg-white hover:bg-gray-light gap-x-2 cursor-pointer border border-slate-400 shadow-sm py-2 px-4 rounded-md`
+          `flex-center w-full lg:w-64 bg-white hover:bg-gray-light gap-x-2 cursor-pointer border border-slate-400 shadow-sm py-2 px-4 rounded-md`,
         )}
         onClick={() => setIsVisible(!isVisible)}
       >
         <span
           className={cn(
             "text-gray-500 whitespace-nowrap text-ellipsis overflow-hidden",
-            value ? "w-28" : "w-auto"
+            value ? "w-28" : "w-auto",
           )}
         >
           {value && value.from && value.to
             ? `${format(value.from, "LLL dd, yyyy")} - ${format(
                 value.to,
-                "LLL dd, yyyy"
+                "LLL dd, yyyy",
               )}`
             : placeholder}
         </span>
@@ -79,7 +79,7 @@ const FilterCalendar = ({
         <div className="absolute top-12 right-0 w-[43rem]">
           <DayPicker
             className={cn(
-              "bg-white w-full inline-block p-4 rounded-xl border border-border shadow-sm"
+              "bg-white w-full inline-block p-4 rounded-xl border border-border shadow-sm",
             )}
             classNames={{
               selected: `bg-red-600 text-gray-500 font-tbc-medium`, // Highlight the selected day
