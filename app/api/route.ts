@@ -4,6 +4,6 @@ export const GET = async () => {
   try {
     return NextResponse.json({ message: "SUCCESS" });
   } catch (err) {
-    return NextResponse.json({ error: "FAILED" }, { status: 500 });
+    return NextResponse.json({ message: "FAILED" }, { status: 500 });
   }
 };

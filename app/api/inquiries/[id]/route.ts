@@ -16,7 +16,7 @@ export const PATCH = async (
     const jsonData = await fs.readFile(DATA_PATH, "utf-8");
     const inquiries = JSON.parse(jsonData);
     const index = inquiries.findIndex((item: TCard) => item.id === id);
-    console.log({ id, body, index });
+    // console.log({ id, body, index });
 
     if (index < 0) {
       return NextResponse.json({ error: "Inquiry not found" }, { status: 404 });

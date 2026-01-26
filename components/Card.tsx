@@ -1,13 +1,9 @@
 import { TCard, TPhase } from "@/lib/types";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  draggable,
-  dropTargetForElements,
-} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 
 import { cn, formatTimeAgo } from "@/lib/utils";
 import { useInquiriesContext } from "@/context/inquiries-context";
-import { updateData } from "@/lib/api";
 
 const Card = ({ card }: { card: TCard }) => {
   const { clientName, id, phase, guestCount, createdAt } = card;
@@ -43,7 +39,6 @@ const Card = ({ card }: { card: TCard }) => {
         setIsOpen(true);
         setInquiryDetails(card);
       }}
-      // onClick={() => onUpdate(id, "completed")}
     >
       <h2 className="text-[17px] font-semibold text-gray-800">{clientName}</h2>
 

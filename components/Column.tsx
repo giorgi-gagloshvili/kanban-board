@@ -50,7 +50,6 @@ const Column = ({
   );
 
   const onUpdate = async (id: string, phase: TPhase) => {
-    console.log({ id, phase });
     try {
       setInquiries((prev) =>
         prev.map((item) => {
