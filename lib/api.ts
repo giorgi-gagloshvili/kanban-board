@@ -8,6 +8,7 @@ export const getData = async (endpoint: string, query?: string | undefined) => {
   if (!response.ok) {
     throw new Error("Failed to fetch");
   }
+
   return await response.json();
 };
 

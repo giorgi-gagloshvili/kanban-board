@@ -11,6 +11,11 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "#4a53fa",
+      },
+      fontFamily: {
+        poppins: ["poppins, sans-serif"],
+        "poppins-bold": ["poppins-bold, sans-serif"],
       },
     },
   },

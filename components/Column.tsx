@@ -100,7 +100,7 @@ const Column = ({
         </div>
       ) : (
         <div className="flex items-center p-12 justify-center">
-          <h3 className="text-xl font-semibold">No Inquiries</h3>
+          <h3 className="text-xl uppercase">No Inquiries</h3>
         </div>
       )}
     </div>

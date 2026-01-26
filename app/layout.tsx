@@ -29,9 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-600`}
-      >
+      <body className={`font-poppins antialiased bg-600`}>
         <InquiriesProvider>
           <Header />
           <main className="max-w-[1320px] w-full px-5 m-auto min-h-screen mt-8 mb-8">

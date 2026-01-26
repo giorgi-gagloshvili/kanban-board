@@ -67,7 +67,7 @@ const Filter = () => {
   };
 
   return (
-    <div className="bg-slate-50 shadow border-default py-4 px-6 rounded-lg flex gap-x-2">
+    <div className="bg-slate-50 shadow border-default py-4 px-6 rounded-xl flex gap-x-2">
       {/* {JSON.stringify(formFields)} */}
       <form
         className="flex flex-col lg:flex-row justify-between w-full gap-y-4 flex-wrap"
@@ -77,9 +77,9 @@ const Filter = () => {
           <div className="flex-1">
             <input
               type="text"
-              className="px-4 w-full py-2 border border-slate-400 outline-none rounded-md shadow-sm bg-white"
+              className="px-4 w-full py-2 border border-slate-300 focus:border-primary outline-none rounded-md shadow-sm bg-white placeholder:text-sm"
               name="clientName"
-              placeholder="client name"
+              placeholder="Client name"
               value={formFields?.clientName}
               onChange={onChange}
             />
@@ -87,7 +87,7 @@ const Filter = () => {
           <div className="flex-1">
             <input
               type="text"
-              className="px-4 w-full py-2 border border-slate-400 outline-none rounded-md shadow-sm bg-white"
+              className="px-4 w-full py-2 border border-gray-300 focus:border-primary outline-none rounded-md shadow-sm bg-white placeholder:text-sm"
               name="potentialValue"
               placeholder="Value"
               value={formFields?.potentialValue}
@@ -96,7 +96,7 @@ const Filter = () => {
           </div>
           <div className="flex-1">
             <FilterCalendar
-              placeholder={"Choose Date"}
+              placeholder={"Select Date"}
               value={
                 formFields.startDate && formFields.endDate
                   ? {
@@ -123,8 +123,7 @@ const Filter = () => {
           <Button
             onClick={onReset}
             type="button"
-            className="bg-white text-black px-6 border-default hover:bg-white"
-            disabled={getFieldsLength()}
+            className="bg-white text-black px-6 border-default hover:bg-slate-100"
           >
             Reset
           </Button>

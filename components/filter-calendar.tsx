@@ -54,16 +54,17 @@ const FilterCalendar = ({
   };
 
   return (
-    <div ref={selectRef} className={`relative w-full`}>
+    <div ref={selectRef} className={`relative w-full z-50`}>
       <div
+        tabIndex={0}
         className={cn(
-          `flex-center w-full lg:w-64 bg-white hover:bg-gray-light gap-x-2 cursor-pointer border border-slate-400 shadow-sm py-2 px-4 rounded-md`,
+          `flex-center w-full lg:w-64 bg-white hover:bg-gray-light gap-x-2 cursor-pointer border focus:border-blue-600 border-gray-300 shadow-sm py-2 px-4 rounded-md`,
         )}
         onClick={() => setIsVisible(!isVisible)}
       >
         <span
           className={cn(
-            "text-gray-500 whitespace-nowrap text-ellipsis overflow-hidden",
+            "text-gray-500 whitespace-nowrap text-ellipsis overflow-hidden text-sm",
             value ? "w-28" : "w-auto",
           )}
         >
@@ -79,11 +80,11 @@ const FilterCalendar = ({
         <div className="absolute top-12 right-0 w-[43rem]">
           <DayPicker
             className={cn(
-              "bg-white w-full inline-block p-4 rounded-xl border border-border shadow-sm",
+              "bg-white w-full inline-block p-4 rounded-xl border border-slate-300 shadow-sm",
             )}
             classNames={{
-              selected: `bg-red-600 text-gray-500 font-tbc-medium`, // Highlight the selected day
-              chevron: `fill-black`, // Change the color of the chevron
+              selected: `bg-red-600 text-gray-500`, // Highlight the selected day
+              chevron: `fill-gray-600`, // Change the color of the chevron
             }}
             mode="range"
             showOutsideDays
@@ -104,15 +105,16 @@ const FilterCalendar = ({
                   >
                     Save
                   </Button>
-                  <button
-                    className="cursor-pointer px-5 bg text-[15px] border border-gray-dark text-black py-2 rounded-lg"
+                  <Button
+                    type="button"
+                    className="cursor-pointer px-5 bg text-[15px] bg-white border text-black py-2 rounded-lg hover:bg-slate-100"
                     onClick={() => {
                       onSelect(undefined);
                       resetDates();
                     }}
                   >
                     Reset
-                  </button>
+                  </Button>
                 </div>
                 <p className="text-sm font-tbc-medium">{footer}</p>
               </div>

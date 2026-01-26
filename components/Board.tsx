@@ -28,20 +28,19 @@ const columns: TColumn[] = [
 ];
 
 const Board = () => {
-  const { inquiries, setInquiries, error, setError } = useInquiriesContext();
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { inquiries, setInquiries, error, setError, isPending, setIsPending } =
+    useInquiriesContext();
 
   useEffect(() => {
     const getInquiries = async () => {
-      setIsLoading(true);
+      setIsPending(true);
       try {
         const response = await getData("/inquiries", location?.search);
         setInquiries(response);
       } catch (err: any) {
         setError(err.message || "Failed to fetch");
       } finally {
-        setIsLoading(false);
+        setIsPending(false);
       }
     };
 
@@ -52,7 +51,7 @@ const Board = () => {
     return inquiries.filter((card) => card.phase === phase);
   };
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="absolute top-0 left-0 w-full h-screen bg-white z-50 flex items-center justify-center">
         <div className="animate-spin">
@@ -70,25 +69,31 @@ const Board = () => {
     );
   }
 
-  return inquiries.length ? (
+  return (
     <div className="overflow-x-auto custom-scrollbar">
       <Filter />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 ">
-        {columns.map((column) => (
-          <Column
-            key={column.id}
-            color={column.color}
-            phase={column.phase}
-            cards={getCards(column.phase)}
-            columnTitle={column.name}
-          />
-        ))}
-      </div>
+      {inquiries.length ? (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 ">
+          {columns.map((column) => (
+            <Column
+              key={column.id}
+              color={column.color}
+              phase={column.phase}
+              cards={getCards(column.phase)}
+              columnTitle={column.name}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center py-32 mt-8 border border-slate-300 bg-slate-50 h-full rounded-xl">
+          No inquiries
+        </div>
+      )}
       <Modal>
         <InquiryDetails />
       </Modal>
     </div>
-  ) : null;
+  );
 };
 
 export default Board;

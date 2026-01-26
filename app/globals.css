@@ -14,10 +14,16 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: "poppins";
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "poppins-bold";
+  src: url("/fonts/Poppins-Bold.ttf") format("truetype");
+  font-weight: normal;
 }
 
 .border-default {
@@ -38,4 +44,46 @@ body {
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #94a3b8; /* slate-400 */
   }
+}
+
+.rdp-nav {
+  position: absolute;
+  width: 100%;
+  justify-content: space-between;
+}
+.rdp-month_caption {
+  display: flex !important;
+  justify-content: center;
+  font-size: 15px !important;
+}
+
+.rdp-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rdp-range_start .rdp-day_button,
+.rdp-range_end .rdp-day_button {
+  background: #f1f5f9 !important;
+  color: black !important;
+}
+.rdp-range_middle {
+  background: #f1f5f9 !important;
+}
+.rdp-weekdays {
+  display: flex;
+}
+
+.rdp-weekday {
+  flex-grow: 1;
+}
+.rdp-day_button {
+  font-size: 14px !important;
+}
+.rdp-today:not(.rdp-outside) {
+  color: black !important;
+}
+.rdp-disabled {
+  text-decoration: line-through !important;
 }

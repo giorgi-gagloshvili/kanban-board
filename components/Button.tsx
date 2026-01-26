@@ -17,7 +17,7 @@ const Button = ({
   return (
     <button
       className={cn(
-        `px-4 py-2 rounded-lg bg-blue-600 text-white cursor-pointer text-base outline-none transition-colors duration-200 hover:bg-black disabled:cursor-default disabled:opacity-60`,
+        `px-4 py-2 rounded-lg bg-primary uppercase text-white cursor-pointer text-sm outline-none transition-colors duration-200 hover:bg-black disabled:cursor-default disabled:opacity-60`,
         className,
       )}
       type={type}
