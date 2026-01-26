@@ -32,11 +32,11 @@ const Filter = () => {
     setFormFields({ ...formFields, [e.target.name]: value });
   };
 
-  const onDateChange = (name: string, dates: any) => {
+  const onDateChange = (dates: any) => {
     setFormFields({
       ...formFields,
-      startDate: dates.startDate,
-      endDate: dates.endDate,
+      startDate: dates ? dates.startDate : undefined,
+      endDate: dates ? dates.endDate : undefined,
     });
   };
 
@@ -106,10 +106,6 @@ const Filter = () => {
                   : undefined
               }
               onSelect={onDateChange}
-              onClose={undefined}
-              resetDates={function (): void {
-                throw new Error("Function not implemented.");
-              }}
             />
           </div>
         </div>

@@ -7,7 +7,7 @@ import "react-day-picker/style.css";
 import { format } from "date-fns";
 import Button from "./Button";
 
-type DateRangeType = {
+type TDateRange = {
   startDate: string | undefined;
   endDate: string | undefined;
 };
@@ -15,18 +15,12 @@ type DateRangeType = {
 const FilterCalendar = ({
   placeholder,
   value,
-
   onSelect,
-  onClose,
-  resetDates,
 }: {
   placeholder: string;
-  value: any;
-  onSelect: any;
-  onClose: any;
-  resetDates: () => void;
+  value: { from: Date; to: Date } | undefined;
+  onSelect: (dates: TDateRange | undefined) => void;
 }) => {
-  // const t = useTranslations();
   const [isVisible, setIsVisible] = useState(false);
   const [dates, setDates] = useState<DateRange | undefined>(undefined);
   const selectRef = useOutsideClick(() => {
@@ -49,7 +43,7 @@ const FilterCalendar = ({
       };
 
       console.log({ date }, "phrialo");
-      onSelect("dates", date);
+      onSelect(date);
     }
   };
 
@@ -83,18 +77,14 @@ const FilterCalendar = ({
               "bg-white w-full inline-block p-4 rounded-xl border border-slate-300 shadow-sm",
             )}
             classNames={{
-              selected: `bg-red-600 text-gray-500`, // Highlight the selected day
-              chevron: `fill-gray-600`, // Change the color of the chevron
+              selected: `bg-red-600 text-gray-500`,
+              chevron: `fill-gray-600`,
             }}
             mode="range"
             showOutsideDays
-            // 2. Pass the selected state
             selected={value}
-            // 3. Update the state on selection
             onSelect={(value) => handler(value)}
-            // Optional: show two months at once
             numberOfMonths={2}
-            // Optional: set a caption for the footer
             footer={
               <div className="flex items-center justify-between mt-4 border-t pt-3">
                 <div className="flex gap-x-2">
@@ -110,7 +100,6 @@ const FilterCalendar = ({
                     className="cursor-pointer px-5 bg text-[15px] bg-white border text-black py-2 rounded-lg hover:bg-slate-100"
                     onClick={() => {
                       onSelect(undefined);
-                      resetDates();
                     }}
                   >
                     Reset
